@@ -1,0 +1,11 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: factor
+Source: https://github.com/lofar-astron/factor
+
+Files: *
+Copyright: 2017 ASTRON
+License: GPL2
+
+Files: debian/*
+Copyright: 2017 Gijs Molenaar <gijs@pythonic.nl>
+License: MIT

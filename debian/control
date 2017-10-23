@@ -1,0 +1,45 @@
+Source: factor
+Section: science
+Priority: optional
+Maintainer: KERN packaging <packaging@kernsuite.info>
+Build-Depends:
+ debhelper (>=9),
+ dh-python,
+ python-all (>= 2.6.6-3~),
+ python-setuptools,
+ python-numpy,
+ python-scipy,
+ python-aplpy,
+ python-shapely,
+ python-jinja2,
+ python-pyds9,
+ wsclean,
+ lsmtool,
+ dysco
+Standards-Version: 3.9.7
+Homepage: https://github.com/lofar-astron/factor
+X-Python-Version: >= 2.7
+Vcs-Git: https://github.com/kernsuite-debian/factor
+Vcs-Browser: https://github.com/kernsuite-debian/factor
+
+Package: factor
+Architecture: all
+Depends:
+ ${python:Depends},
+ ${misc:Depends},
+ wsclean,
+ lsmtool,
+ python-aplpy,
+ python-shapely,
+ python-jinja2,
+ python-pyds9,
+ dysco
+Description: Facet calibration for LOFAR (Python 2)
+ Factor is a tool for producing low-noise, high-resolution wide-field images
+ from LOFAR HBA data. Factor has been designed to use as few free parameters as
+ possible in order to mitigate the effects of over-fitting and thus maximize
+ image fidelity. Factor runs well on single machines or on compute clusters
+ with multiple nodes (with a shared file system). It requires only modest
+ resources (at least 32 GB of memory and 1 TB of disk space).
+ .
+ This package installs the library for Python 2.

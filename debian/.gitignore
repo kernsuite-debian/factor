@@ -1,0 +1,7 @@
+*.postinst.debhelper
+*.prerm.debhelper
+*.substvars
+debhelper-build-stamp
+files
+*.debhelper.log
+factor/
