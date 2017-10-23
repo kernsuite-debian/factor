@@ -4,7 +4,7 @@ Source: https://github.com/lofar-astron/factor
 
 Files: *
 Copyright: 2017 ASTRON
-License: GPL2
+License: GPL-2.0
 
 Files: debian/*
 Copyright: 2017 Gijs Molenaar <gijs@pythonic.nl>
