@@ -1,0 +1,72 @@
+#!/usr/bin/env python
+# encoding: utf-8
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+# The code is based on an original idea of Reinout van Weeren
+from factor._version import __version__ as version
+from factor import process
+import optparse
+import sys
+
+
+if __name__ == '__main__':
+    parser = optparse.OptionParser(usage='%prog parset',
+            version='%%prog %s' % (version))
+    parser.add_option('-d', help='enable dry-run mode', action='store_true', default=False)
+    parser.add_option('-q', help='enable quiet mode', action='store_true', default=False)
+    parser.add_option('-r', '--reset', help='comma-separated list of directions to reset '
+        '(e.g., "-r facet1,facet3")', type=str, default=None)
+    parser.add_option('-o', '--ops', help='comma-separated list of operations '
+        'to reset for the directions specified with "-r" or "--reset" (e.g., '
+        '"-o facetselfcal,facetsub"). By default, all operations are reset. Available '
+        'operations are: outlierpeel, facetpeel, facetpeelimage, facetselfcal, facetsub, '
+        'facetimage, fieldmosaic', type=str, default=None)
+    parser.add_option('-s', '--stop_after', help='Stop after processing so many facetselfcal groups. '
+	'(Please note the difference between directions and groups!)', type=int, default=0)
+    parser.add_option('-t', help='enable test mode', action='store_true', default=False)
+    parser.add_option('-v', help='enable verbose mode', action='store_true', default=False)
+    (options, args) = parser.parse_args()
+
+    if len(args) != 1:
+        parser.print_help()
+        sys.exit()
+
+    parset_file = args[0]
+
+    # Prepare logger
+    if options.q:
+        logging_level = 'warning'
+    elif options.v:
+        logging_level = 'debug'
+    else:
+        logging_level = 'info'
+
+    # Construct list of directions and operations to reset
+    if options.reset is not None:
+        parts = options.reset.split(',')
+        reset_directions = [p.strip() for p in parts]
+    else:
+        reset_directions = []
+    if options.ops is not None:
+        parts = options.ops.split(',')
+        reset_operations = [p.strip() for p in parts]
+    else:
+        reset_operations = []
+
+    # Process the field
+    process.run(parset_file, logging_level=logging_level, dry_run=options.d,
+        test_run=options.t, reset_directions=reset_directions, reset_operations=
+        reset_operations, stop_after=options.stop_after)
